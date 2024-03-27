@@ -1,35 +1,51 @@
 #include <iostream>
 #include "engine.h"
+#include "shape.h"
 
 using namespace std;
 
 class Game : public Engine
 {
+private:
+  Triangle *triangle, *triangle2;
+  Rectangle *rectangle;
+
 public:
   Game(string title, int width, int height) : Engine(title, width, height) {}
 
   void init() override
   {
-    cout << "[GAME] Hello, from Game!\n";
+    triangle = new Triangle(this);
+    triangle->setVerticie(0, new GLfloat[2]{-0.5f, -0.5f});
+    triangle->setVerticie(1, new GLfloat[2]{0.5f, -0.5f});
+    triangle->setVerticie(2, new GLfloat[2]{0.0f, 0.5f});
+
+    triangle2 = new Triangle(this);
+    triangle2->setVerticie(0, new GLfloat[2]{-0.5f, 0.5f});
+    triangle2->setVerticie(1, new GLfloat[2]{0.5f, 0.5f});
+    triangle2->setVerticie(2, new GLfloat[2]{0.0f, -0.5f});
+
+    rectangle = new Rectangle(this, getWidth() / 2 - 50, getHeight() / 2 - 50, 100, 100);
   }
 
   void update() override
   {
-    cout << "[GAME] FPS: " << getFps() << "\n";
-    cout << "[GAME] DeltaTime: " << getDeltaTime() << "s\n";
+    rectangle->setX(rectangle->getX() + 1);
   }
 
   void render() override
   {
-    cout << "[GAME] Rendering...\n";
+    clearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-    glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    setColor(255, 255, 255);
+    rectangle->render();
   }
 
   void cleanup() override
   {
-    cout << "[GAME] Goodbye, from Game!\n";
+    delete triangle;
+    delete triangle2;
+    delete rectangle;
   }
 };
 
