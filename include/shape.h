@@ -13,13 +13,25 @@
 using namespace std;
 
 /**
+ * @class Shape
+ * @brief The Shape class represents a shape that can be rendered on the screen.
+ *
+ * The Shape class is an abstract class that provides an interface for creating and rendering shapes on the screen.
+ */
+class Shape
+{
+public:
+  virtual void render() = 0;
+};
+
+/**
  * @class Triangle
  * @brief The Triangle class represents a shape that can be rendered on the screen.
  *
  * The Triangle class is responsible for creating and managing the vertex buffer object (VBO) and vertex array object (VAO)
  * for a shape that can be rendered on the screen.
  */
-class Triangle
+class Triangle : public Shape
 {
 private:
   Engine *engine;
@@ -109,7 +121,17 @@ public:
   }
 };
 
-class Rectangle
+/**
+ * @class Rectangle
+ * @brief Represents a rectangle shape in a 2D space.
+ *
+ * The Rectangle class provides functionality to create and manipulate rectangle shapes.
+ * It is designed to work with an Engine object to render the rectangle on the screen.
+ */
+/**
+ * @brief The Rectangle class represents a rectangle shape in a graphics engine.
+ */
+class Rectangle : public Shape
 {
 private:
   Engine *engine;
@@ -119,28 +141,10 @@ private:
 
   Triangle *triangle1, *triangle2;
 
-public:
-  Rectangle(Engine *engine, int x, int y, int width, int height) : engine(engine), x(x), y(y), width(width), height(height)
-  {
-    triangle1 = new Triangle(engine);
-    triangle2 = new Triangle(engine);
-
-    setVerticies();
-  }
-
-  ~Rectangle()
-  {
-    delete triangle1;
-    delete triangle2;
-  }
-
-  void render()
-  {
-    triangle1->render();
-    triangle2->render();
-  }
-
-  void setVerticies()
+  /**
+   * @brief Sets the vertices of the triangles based on the current position and size of the rectangle.
+   */
+  void setVertices()
   {
     GLfloat x1 = (GLfloat)x / engine->getWidth() * 2 - 1;
     GLfloat y1 = 1 - (GLfloat)y / engine->getHeight() * 2;
@@ -160,33 +164,103 @@ public:
     triangle2->setVerticie(2, new GLfloat[3]{x4, y4, 0.0f});
   }
 
+public:
+  /**
+   * @brief Constructs a Rectangle object with the specified position and size.
+   * @param engine Pointer to the graphics engine.
+   * @param x The x-coordinate of the top-left corner of the rectangle.
+   * @param y The y-coordinate of the top-left corner of the rectangle.
+   * @param width The width of the rectangle.
+   * @param height The height of the rectangle.
+   */
+  Rectangle(Engine *engine, int x, int y, int width, int height) : engine(engine), x(x), y(y), width(width), height(height)
+  {
+    triangle1 = new Triangle(engine);
+    triangle2 = new Triangle(engine);
+
+    setVertices();
+  }
+
+  /**
+   * @brief Destructor for the Rectangle object.
+   */
+  ~Rectangle()
+  {
+    delete triangle1;
+    delete triangle2;
+  }
+
+  /**
+   * @brief Renders the rectangle on the screen.
+   */
+  void render()
+  {
+    triangle1->render();
+    triangle2->render();
+  }
+
+  /**
+   * @brief Sets the x-coordinate of the top-left corner of the rectangle.
+   * @param x The new x-coordinate.
+   */
   void setX(int x)
   {
     this->x = x;
-    setVerticies();
+    setVertices();
   }
 
+  /**
+   * @brief Sets the y-coordinate of the top-left corner of the rectangle.
+   * @param y The new y-coordinate.
+   */
   void setY(int y)
   {
     this->y = y;
-    setVerticies();
+    setVertices();
   }
 
+  /**
+   * @brief Sets the width of the rectangle.
+   * @param width The new width.
+   */
   void setWidth(int width)
   {
     this->width = width;
-    setVerticies();
+    setVertices();
   }
 
+  /**
+   * @brief Sets the height of the rectangle.
+   * @param height The new height.
+   */
   void setHeight(int height)
   {
     this->height = height;
-    setVerticies();
+    setVertices();
   }
 
+  /**
+   * @brief Returns the x-coordinate of the top-left corner of the rectangle.
+   * @return The x-coordinate.
+   */
   int getX() { return x; }
+
+  /**
+   * @brief Returns the y-coordinate of the top-left corner of the rectangle.
+   * @return The y-coordinate.
+   */
   int getY() { return y; }
+
+  /**
+   * @brief Returns the width of the rectangle.
+   * @return The width.
+   */
   int getWidth() { return width; }
+
+  /**
+   * @brief Returns the height of the rectangle.
+   * @return The height.
+   */
   int getHeight() { return height; }
 };
 

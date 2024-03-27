@@ -11,7 +11,10 @@ private:
   Rectangle *rectangle;
 
 public:
-  Game(string title, int width, int height) : Engine(title, width, height) {}
+  Game(string title, int width, int height) : Engine(title, width, height)
+  {
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+  }
 
   void init() override
   {
@@ -25,7 +28,7 @@ public:
     triangle2->setVerticie(1, new GLfloat[2]{0.5f, 0.5f});
     triangle2->setVerticie(2, new GLfloat[2]{0.0f, -0.5f});
 
-    rectangle = new Rectangle(this, getWidth() / 2 - 50, getHeight() / 2 - 50, 100, 100);
+    rectangle = new Rectangle(this, 50, getHeight() / 2 - 50, 100, 100);
   }
 
   void update() override
