@@ -1,12 +1,12 @@
 # OpenGL Project
 
-This is a project that utilizes the OpenGL library for graphics rendering.
+This is a project that utilizes the OpenGL library to create a simple game engine.
 
 ## Prerequisites
 
 Before running this project, make sure you have the following installed:
 
-- OpenGL library
+- [GLFW](https://www.glfw.org/)
 
 ## Getting Started
 
@@ -23,6 +23,11 @@ To get started with this project, follow these steps:
 - [x] init(), update(), render() and destroy() functions
 - [x] Input handling
 - [x] Debug mode
+- [ ] Camera
+- [ ] Movement
+- [ ] Textures
+- [ ] 2D rendering
+- [ ] 3D rendering
 
 ## Usage
 
@@ -33,9 +38,9 @@ TODO: Add usage instructions
 Contributions are welcome! If you'd like to contribute to this project, please follow these guidelines:
 
 1. Fork the repository
-2. Create a new branch: `git checkout -b feature/your-feature`
+2. Create a new branch: `git checkout -b feat/your-feature`
 3. Make your changes and commit them: `git commit -m 'Add your feature'`
-4. Push to the branch: `git push origin feature/your-feature`
+4. Push to the branch: `git push origin feat/your-feature`
 5. Submit a pull request
 
 ## License
