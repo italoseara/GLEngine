@@ -37,6 +37,12 @@ public:
   {
     clearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
+    setColor(0, 255, 0);
+    triangle->render();
+
+    setColor(255, 0, 0);
+    triangle2->render();
+
     setColor(255, 255, 255);
     rectangle->render();
   }
