@@ -10,6 +10,8 @@
 #include <chrono>
 #include <string>
 #include <iostream>
+
+#include "glad/glad.h"
 #include <GLFW/glfw3.h>
 
 using namespace std;
@@ -125,15 +127,16 @@ public:
   }
 
   /**
-   * @brief Initializes the engine.
+   * @brief Called once before the engine starts running.
    *
    * This function is called to initialize the engine before it starts running.
+   * Can be called again to reset the state of the engine.
    * It can be overridden by derived classes to perform any necessary initialization tasks.
    */
   virtual void init() {}
 
   /**
-   * @brief Updates the engine.
+   * @brief Called every frame to update the engine's state.
    *
    * This function is called to update the engine's state.
    * It should be overridden by derived classes to implement
@@ -142,25 +145,29 @@ public:
   virtual void update() {}
 
   /**
-   * @brief This function is responsible for rendering the objects on the screen.
+   * @brief Called every frame to render the engine's state.
    *
    * This function should be overridden by derived classes to implement the rendering logic.
    */
   virtual void render() {}
 
   /**
-   * @brief This function is called after the engine has finished running.
+   * @brief Called once after the engine has finished running.
    *
-   * This function is called to destroy the engine after it has finished running.
+   * This function is called to cleanup the engine after it has finished running.
    * It can be overridden by derived classes to perform any necessary cleanup tasks.
    */
-  virtual void destroy() {}
+  virtual void cleanup() {}
 
   /**
    * Runs the engine.
    */
   void run()
   {
+    // Log the OpenGL version
+    log("OpenGL Version: " + string((char *)glfwGetVersionString()));
+
+    // Create window and thows an error if it fails
     log("Creating window...");
     window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
     if (!window)
@@ -172,14 +179,16 @@ public:
 
     glfwMakeContextCurrent(window);
 
+    gladLoadGL();
+    glViewport(0, 0, width, height);
+
+    // Starts the running loop
     log("Running...");
 
     init();
     while (!glfwWindowShouldClose(window))
     {
-      glfwSwapBuffers(window);
-      glfwPollEvents();
-
+      // Update and Render the scene
       update();
       render();
 
@@ -194,9 +203,16 @@ public:
 
       // DeltaTime
       lastFrame = getTimestamp();
+
+      // Handle events and swap buffers
+      glfwSwapBuffers(window);
+      glfwPollEvents();
     }
 
+    // After the program is closed
     log("Destroying window...");
+
+    cleanup();
     glfwDestroyWindow(window);
   }
 };

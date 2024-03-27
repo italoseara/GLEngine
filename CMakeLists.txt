@@ -6,7 +6,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(OpenGL REQUIRED)
 
-add_executable(myproject src/main.cpp)
+file(GLOB_RECURSE SOURCES "include/*/*.cpp" "include/*/*.c")
+add_executable(myproject ${SOURCES} "src/main.cpp")
 
 target_link_libraries(myproject glfw)
-target_include_directories(myproject PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(myproject PUBLIC 
+  ${CMAKE_CURRENT_SOURCE_DIR}/include 
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/*)

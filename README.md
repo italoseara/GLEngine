@@ -20,7 +20,7 @@ To get started with this project, follow these steps:
 
 - [x] Delta time calculation
 - [x] Frame rate calculation
-- [x] init(), update(), render() and destroy() functions
+- [x] init(), update(), render() and cleanup() functions
 - [x] Input handling
 - [x] Debug mode
 - [ ] Camera
