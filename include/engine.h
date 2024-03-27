@@ -149,6 +149,14 @@ public:
   virtual void render() {}
 
   /**
+   * @brief This function is called after the engine has finished running.
+   *
+   * This function is called to destroy the engine after it has finished running.
+   * It can be overridden by derived classes to perform any necessary cleanup tasks.
+   */
+  virtual void destroy() {}
+
+  /**
    * Runs the engine.
    */
   void run()
