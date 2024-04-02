@@ -1,68 +1,78 @@
 #include <iostream>
-#include "engine.h"
-#include "shape.h"
+
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
+#include "engine/engine.h"
+#include "engine/shaders.h"
+#include "engine/VAO.h"
+#include "engine/VBO.h"
+#include "engine/EBO.h"
 
 using namespace std;
 
 class Game : public Engine
 {
 private:
-  Triangle *triangle, *triangle2;
-  Rectangle *rectangle;
+  Shader shader;
+  VAO vao;
+  VBO vbo;
+  EBO ebo;
 
 public:
-  Game(string title, int width, int height) : Engine(title, width, height)
+  Game(string title, int width, int height, bool debug = false) : Engine(title, width, height, debug)
   {
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
   }
 
   void init() override
   {
-    triangle = new Triangle(this);
-    triangle->setVerticie(0, new GLfloat[2]{-0.5f, -0.5f});
-    triangle->setVerticie(1, new GLfloat[2]{0.5f, -0.5f});
-    triangle->setVerticie(2, new GLfloat[2]{0.0f, 0.5f});
+    string shader_path = "/home/italo-seara/dev/OpenGL/src/shaders";
+    shader = Shader(shader_path, "vertex.glsl", "fragment.glsl");
 
-    triangle2 = new Triangle(this);
-    triangle2->setVerticie(0, new GLfloat[2]{-0.5f, 0.5f});
-    triangle2->setVerticie(1, new GLfloat[2]{0.5f, 0.5f});
-    triangle2->setVerticie(2, new GLfloat[2]{0.0f, -0.5f});
+    GLfloat vertices[] = {-0.5f, -0.5f, 0.0f,
+                          0.5f, -0.5f, 0.0f,
+                          0.0f, 0.5f, 0.0f};
+    GLuint indices[] = {0, 1, 2};
 
-    rectangle = new Rectangle(this, 50, getHeight() / 2 - 50, 100, 100);
+    vao = VAO();
+    vao.bind();
+
+    vbo = VBO(vertices, sizeof(vertices));
+    ebo = EBO(indices, sizeof(indices));
+
+    vao.linkVBO(vbo, 0);
+    vao.unbind();
+    vbo.unbind();
+    ebo.unbind();
   }
 
   void update() override
   {
-    rectangle->setX(rectangle->getX() + 1);
   }
 
   void render() override
   {
-    clearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
 
-    setColor(0, 255, 0);
-    triangle->render();
+    shader.use();
+    vao.bind();
 
-    setColor(255, 0, 0);
-    triangle2->render();
-
-    setColor(255, 255, 255);
-    rectangle->render();
+    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
   }
 
-  void cleanup() override
+  void shutdown() override
   {
-    delete triangle;
-    delete triangle2;
-    delete rectangle;
+    vao.remove();
+    vbo.remove();
+    ebo.remove();
+    shader.remove();
   }
 };
 
-int main()
+int main(int argc, char const *argv[])
 {
-  Game game("Teste", 800, 600);
-  game.setDebug(true);
+  Game game("OpenGL Engine", 800, 600, true);
   game.run();
-
   return 0;
 }

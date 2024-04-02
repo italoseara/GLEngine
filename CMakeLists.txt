@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(OpenGL REQUIRED)
 
-file(GLOB_RECURSE SOURCES "include/*/*.cpp" "include/*/*.c")
-add_executable(myproject ${SOURCES} "src/main.cpp")
+file(GLOB_RECURSE SOURCES "include/**/*.cpp" "include/**/*.c")
+add_executable(myproject ${SOURCES} "src/main.cpp" "include/engine/EBO.cpp" "include/engine/VAO.cpp" "include/engine/VBO.cpp" "include/engine/shaders.cpp")
 
 target_link_libraries(myproject glfw)
 target_include_directories(myproject PUBLIC 
