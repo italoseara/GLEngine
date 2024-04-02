@@ -25,6 +25,9 @@ private:
   GLuint id;
 
 public:
+  /**
+   * @brief Constructs an empty Shader object.
+   */
   Shader() {}
 
   /**
@@ -33,11 +36,10 @@ public:
    * This constructor loads the vertex and fragment shader source code from the specified files, 
    * compiles them, and links them into a shader program.
    *
-   * @param folder_path The path to the folder containing the vertex and fragment shader files.
-   * @param vertex_file The name of the vertex shader file.
-   * @param fragment_file The name of the fragment shader file.
+   * @param vertex_path The name of the vertex shader file.
+   * @param fragment_path The name of the fragment shader file.
    */
-  Shader(string folder_path, string vertex_file, string fragment_file);
+  Shader(string vertex_path, string fragment_path);
 
   /**
    * @brief Activates the shader program for rendering.

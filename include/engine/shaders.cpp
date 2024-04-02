@@ -1,6 +1,6 @@
 #include "shaders.h"
 
-string read_file(const char *filename)
+string read_file(string filename)
 {
   ifstream in(filename, ios::binary);
   if (!in) {
@@ -18,10 +18,10 @@ string read_file(const char *filename)
   return contents;
 }
 
-Shader::Shader(string folder_path, string vertex_file, string fragment_file)
+Shader::Shader(string vertex_path, string fragment_path)
 {
-  string vertex_code = read_file((folder_path + "/" + vertex_file).c_str());
-  string fragment_code = read_file((folder_path + "/" + fragment_file).c_str());
+  string vertex_code = read_file(vertex_path);
+  string fragment_code = read_file(fragment_path);
 
   const char *vertex_source = vertex_code.c_str();
   const char *fragment_source = fragment_code.c_str();

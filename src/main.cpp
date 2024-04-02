@@ -27,7 +27,7 @@ public:
   void init() override
   {
     string shader_path = "/home/italo-seara/dev/OpenGL/src/shaders";
-    shader = Shader(shader_path, "vertex.glsl", "fragment.glsl");
+    shader = Shader(shader_path + "/default.vert", shader_path + "/default.frag");
 
     GLfloat vertices[] = {-0.5f, -0.5f, 0.0f,
                           0.5f, -0.5f, 0.0f,
