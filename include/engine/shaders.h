@@ -33,7 +33,7 @@ public:
   /**
    * @brief Constructs a Shader object from the specified vertex and fragment shader files.
    *
-   * This constructor loads the vertex and fragment shader source code from the specified files, 
+   * This constructor loads the vertex and fragment shader source code from the specified files,
    * compiles them, and links them into a shader program.
    *
    * @param vertex_path The name of the vertex shader file.
@@ -44,12 +44,27 @@ public:
   /**
    * @brief Activates the shader program for rendering.
    */
-  void use();
+  void activate();
 
   /**
    * @brief Removes the shader program from the current rendering state.
    */
   void remove();
+
+  /**
+   * @brief Retrieves the shader program ID.
+   *
+   * @return The shader program ID.
+   */
+  GLuint get_id();
+
+  /**
+   * @brief Checks for shader compilation errors.
+   * 
+   * @param shader The shader ID.
+   * @param type The shader type.
+   */
+  void check(unsigned int shader, string type);
 };
 
 #endif

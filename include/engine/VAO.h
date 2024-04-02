@@ -22,9 +22,9 @@ public:
   VAO();
 
   /**
-   * @brief Binds the VAO to the current OpenGL context.
+   * @brief Links a VBO to the VAO.
    */
-  void linkVBO(VBO &VBO, GLuint layout);
+  void link(VBO &VBO, GLuint layout, GLuint numComponents, GLenum type, GLsizeiptr stride, void *offset);
 
   /**
    * @brief Binds the VAO to the current OpenGL context.

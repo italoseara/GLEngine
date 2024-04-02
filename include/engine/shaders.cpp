@@ -3,7 +3,8 @@
 string read_file(string filename)
 {
   ifstream in(filename, ios::binary);
-  if (!in) {
+  if (!in)
+  {
     cerr << "Error opening file: " << filename << endl;
     exit(EXIT_FAILURE);
   }
@@ -32,14 +33,7 @@ Shader::Shader(string vertex_path, string fragment_path)
   glCompileShader(vertex_shader);
 
   // Check for shader compilation errors
-  GLint success;
-  glGetShaderiv(vertex_shader, GL_COMPILE_STATUS, &success);
-  if (!success)
-  {
-    char info_log[512];
-    glGetShaderInfoLog(vertex_shader, 512, NULL, info_log);
-    cerr << "Vertex shader compilation failed: " << info_log << endl;
-  }
+  check(vertex_shader, "VERTEX");
 
   // Compile fragment shader
   GLuint fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -47,13 +41,7 @@ Shader::Shader(string vertex_path, string fragment_path)
   glCompileShader(fragment_shader);
 
   // Check for shader compilation errors
-  glGetShaderiv(fragment_shader, GL_COMPILE_STATUS, &success);
-  if (!success)
-  {
-    char info_log[512];
-    glGetShaderInfoLog(fragment_shader, 512, NULL, info_log);
-    cerr << "Fragment shader compilation failed: " << info_log << endl;
-  }
+  check(fragment_shader, "FRAGMENT");
 
   // Link shaders
   id = glCreateProgram();
@@ -62,20 +50,14 @@ Shader::Shader(string vertex_path, string fragment_path)
   glLinkProgram(id);
 
   // Check for linking errors
-  glGetProgramiv(id, GL_LINK_STATUS, &success);
-  if (!success)
-  {
-    char info_log[512];
-    glGetProgramInfoLog(id, 512, NULL, info_log);
-    cerr << "Shader program linking failed: " << info_log << endl;
-  }
+  check(id, "PROGRAM");
 
   // Delete shaders
   glDeleteShader(vertex_shader);
   glDeleteShader(fragment_shader);
 }
 
-void Shader::use()
+void Shader::activate()
 {
   glUseProgram(id);
 }
@@ -83,4 +65,33 @@ void Shader::use()
 void Shader::remove()
 {
   glDeleteProgram(id);
+}
+
+GLuint Shader::get_id()
+{
+  return id;
+}
+
+void Shader::check(unsigned int shader, string type)
+{
+  GLint success;
+  char info_log[1024];
+  if (type != "PROGRAM")
+  {
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+      glGetShaderInfoLog(shader, 1024, NULL, info_log);
+      cerr << "Shader compilation failed (" << type << "): " << info_log << endl;
+    }
+  }
+  else
+  {
+    glGetProgramiv(shader, GL_LINK_STATUS, &success);
+    if (!success)
+    {
+      glGetProgramInfoLog(shader, 1024, NULL, info_log);
+      cerr << "Shader linking failed (" << type << "): " << info_log << endl;
+    }
+  }
 }
