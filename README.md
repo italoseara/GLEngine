@@ -35,6 +35,7 @@ To get started with this project, follow these steps:
 ```cpp
 #include "engine.h"
 
+// Implement the following functions
 void init();
 void update(float dt);
 void render();

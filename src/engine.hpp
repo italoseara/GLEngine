@@ -6,8 +6,6 @@
 #include <iostream>
 #include <GL/freeglut.h>
 
-using namespace std::chrono;
-
 #define log(...) (printf("[%s:%d] ", __FILE__, __LINE__), printf(__VA_ARGS__), printf("\n"))
 
 /*
@@ -20,6 +18,9 @@ using namespace std::chrono;
 #define KEY_BACKSPACE 0x0008
 #define KEY_DELETE 0x007F
 
+/*
+ * Get current time in milliseconds
+ */
 uint64_t getCurrentTimeMillis()
 {
   using namespace std::chrono;
@@ -34,8 +35,9 @@ namespace Engine
   /*
    * Variables
    */
-  int width, height;
   int fps = 60;
+  int width, height;
+  bool keys[256];
 
   /*
    * Internal functions
@@ -80,14 +82,24 @@ namespace Engine
     }
   }
 
+  void _keyDown(unsigned char key, int x, int y)
+  {
+    keys[toupper(key)] = true;
+  }
+
+  void _keyUp(unsigned char key, int x, int y)
+  {
+    keys[toupper(key)] = false;
+  }
+
   void _timer(int value)
   {
     frames++;
     _calculateFPS();
 
     // I know i could've used glutIdleFunc, but this way i can control the update rate
-    _update();
     glutTimerFunc(1000 / fps, _timer, 0);
+    _update();
     glutPostRedisplay();
   }
 
@@ -105,6 +117,9 @@ namespace Engine
     glutCreateWindow(title);
     gluOrtho2D(-1.0, 1.0, -1.0, 1.0);
     glutTimerFunc(1000 / fps, _timer, 0);
+
+    glutKeyboardFunc(_keyDown);
+    glutKeyboardUpFunc(_keyUp);
   }
 
   void onInit(void (*init)())
@@ -126,6 +141,11 @@ namespace Engine
   void onKeyDown(void (*input)(unsigned char key, int x, int y))
   {
     glutKeyboardFunc(input);
+  }
+
+  void onKeyUp(void (*input)(unsigned char key, int x, int y))
+  {
+    glutKeyboardUpFunc(input);
   }
 
   void onShutdown(void (*shutdown)())
@@ -157,6 +177,11 @@ namespace Engine
     return x >= 0 && x <= width && y >= 0 && y <= height;
   }
 
+  bool isKeyPressed(unsigned char key)
+  {
+    return keys[toupper(key)];
+  }
+
   std::pair<float, float> toScreen(int x, int y)
   {
     return std::make_pair((float)x / (float)width - 1.0f, 1.0f - (float)y / (float)height);
@@ -175,9 +200,6 @@ namespace Engine
 
   void drawLine(int x1, int y1, int x2, int y2)
   {
-    if (!isOnScreen(x1, y1) || !isOnScreen(x2, y2))
-      return;
-
     std::pair<float, float> p1 = toScreen(x1, y1);
     std::pair<float, float> p2 = toScreen(x2, y2);
     glBegin(GL_LINES);
@@ -190,9 +212,6 @@ namespace Engine
 
   void drawCircle(int x, int y, int radius, bool fill = false)
   {
-    if (!isOnScreen(x, y))
-      return;
-
     std::pair<float, float> p = toScreen(x, y);
     glBegin(fill ? GL_POLYGON : GL_LINE_LOOP);
     for (int i = 0; i < 360; i++)
@@ -205,9 +224,6 @@ namespace Engine
 
   void drawRectangle(int x, int y, int width, int height, bool fill = false)
   {
-    if (!isOnScreen(x, y) || !isOnScreen(x + width, y + height))
-      return;
-
     std::pair<float, float> p1 = toScreen(x, y);
     std::pair<float, float> p2 = toScreen(x + width, y);
     std::pair<float, float> p3 = toScreen(x + width, y + height);
@@ -224,9 +240,6 @@ namespace Engine
 
   void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, bool fill = false)
   {
-    if (!isOnScreen(x1, y1) || !isOnScreen(x2, y2) || !isOnScreen(x3, y3))
-      return;
-
     std::pair<float, float> p1 = toScreen(x1, y1);
     std::pair<float, float> p2 = toScreen(x2, y2);
     std::pair<float, float> p3 = toScreen(x3, y3);
@@ -241,9 +254,6 @@ namespace Engine
 
   void drawText(int x, int y, const char *text, void *font = GLUT_BITMAP_HELVETICA_12)
   {
-    if (!isOnScreen(x, y))
-      return;
-
     glPushMatrix();
 
     std::pair<float, float> p = toScreen(x, y + (glutBitmapHeight(font) * 1.5));
