@@ -6,7 +6,8 @@ This is a project that utilizes the OpenGL library to create a simple game engin
 
 Before running this project, make sure you have the following installed:
 
-- [GLFW](https://www.glfw.org/)
+- [OpenGL](https://www.opengl.org/)
+- [FreeGLUT](http://freeglut.sourceforge.net/)
 
 ## Getting Started
 
@@ -20,13 +21,13 @@ To get started with this project, follow these steps:
 
 - [x] Delta time calculation
 - [x] Frame rate calculation
-- [x] init(), update(), render() and cleanup() functions
+- [x] init(), update(), render() and shutdown() functions
 - [x] Input handling
 - [x] Debug mode
 - [ ] Camera
 - [ ] Movement
 - [ ] Textures
-- [ ] 2D rendering
+- [x] 2D rendering
 - [ ] 3D rendering
 
 ## Usage
