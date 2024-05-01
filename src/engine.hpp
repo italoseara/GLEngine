@@ -123,7 +123,7 @@ namespace Engine
     glutDisplayFunc(_render);
   }
 
-  void onInput(void (*input)(unsigned char key, int x, int y))
+  void onKeyDown(void (*input)(unsigned char key, int x, int y))
   {
     glutKeyboardFunc(input);
   }

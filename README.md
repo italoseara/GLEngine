@@ -32,7 +32,26 @@ To get started with this project, follow these steps:
 
 ## Usage
 
-TODO: Add usage instructions
+```cpp
+#include "engine.h"
+
+void init();
+void update(float dt);
+void render();
+void input(unsigned char key, int x, int y);
+void shutdown();
+
+int main(int argc, char** argv) {
+    Engine::init(&argc, argv, "My Game", 800, 600);
+    Engine::onInit(init);
+    Engine::onUpdate(update);
+    Engine::onRender(render);
+    Engine::onKeyDown(input);
+    Engine::onShutdown(shutdown);
+    Engine::run();
+    return 0;
+}
+```
 
 ## Contributing
 

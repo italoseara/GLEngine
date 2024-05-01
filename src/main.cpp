@@ -36,7 +36,7 @@ int main(int argc, char **argv)
   Engine::onInit(init);
   Engine::onUpdate(update);
   Engine::onRender(render);
-  Engine::onInput(input);
+  Engine::onKeyDown(input);
   Engine::onShutdown(shutdown);
   Engine::run();
   return 0;
