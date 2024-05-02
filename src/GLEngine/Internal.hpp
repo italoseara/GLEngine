@@ -13,6 +13,9 @@ namespace Engine
     int width, height;
     std::string title;
 
+    int mouseX, mouseY;
+    bool mouseButtons[3];
+
     bool keys[256];
     int elapsedFrames = 0, currentFPS = 0;
     uint64_t initialTime = 0, lastTime = 0;
@@ -22,6 +25,8 @@ namespace Engine
     void (*render)();
     void (*keyDown)(int);
     void (*keyUp)(int);
+    void (*mouseDown)(int, int, int, int);
+    void (*mouseMove)(int, int);
 
     uint64_t getCurrentTimeMillis()
     {
@@ -84,6 +89,21 @@ namespace Engine
       if (keyUp)
         keyUp(key);
       keys[toupper(key)] = false;
+    }
+
+    void mouseDownWrapper(int button, int state, int x, int y)
+    {
+      if (mouseDown)
+        mouseDown(button, state, x, y);
+      mouseButtons[button] = state == GLUT_DOWN;
+    }
+
+    void mouseMoveWrapper(int x, int y)
+    {
+      if (mouseMove)
+        mouseMove(x, y);
+      mouseX = x;
+      mouseY = y;
     }
 
     void windowReshape(int w, int h)

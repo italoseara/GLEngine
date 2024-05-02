@@ -7,15 +7,19 @@ int speed = 250;
 float x, y;
 
 Engine::Circle circle;
-Engine::Text text;
+Engine::Line line;
+Engine::Text fpsText;
+Engine::Text mouseText;
 
 void init()
 {
-  x = Engine::Width() / 2;
-  y = Engine::Height() / 2;
+  x = Engine::getWidth() / 2;
+  y = Engine::getHeight() / 2;
 
   circle = Engine::Circle({x, y}, 50, true);
-  text = Engine::Text({0, 0});
+  line = Engine::Line({0, 0}, {0, 0});
+  fpsText = Engine::Text({0, 0});
+  mouseText = Engine::Text({0, 20});
 }
 
 void update(double dt)
@@ -30,21 +34,27 @@ void update(double dt)
     x += speed * dt;
 
   circle.pos = {x, y};
-  text.text = "X: " + to_string(x) + ", Y: " + to_string(y);
+  line.start = {x, y};
+  line.end = Engine::getMousePos();
+
+  fpsText.text = "FPS: " + to_string(Engine::getFPS());
+  mouseText.text = "Mouse: " + to_string(Engine::getMouseX()) + ", " + to_string(Engine::getMouseY()) + " " + (Engine::isMousePressed(0) ? "LMB " : "") + (Engine::isMousePressed(1) ? "RMB " : "") + (Engine::isMousePressed(2) ? "MMB " : "");
 }
 
 void render()
 {
   glColor3ub(255, 255, 255);
   circle.draw();
+  line.draw();
 
   glColor3ub(0, 255, 0);
-  text.draw();
+  fpsText.draw();
+  mouseText.draw();
 }
 
 int main(int argc, char **argv)
 {
-  Engine::Init("App", 800, 600);
+  Engine::Init("App", 800, 600, 120);
   Engine::Callbacks(init, update, render);
   Engine::Run(&argc, argv);
   return 0;
