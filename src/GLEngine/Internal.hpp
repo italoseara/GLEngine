@@ -85,6 +85,17 @@ namespace Engine
         keyUp(key);
       keys[toupper(key)] = false;
     }
+
+    void windowReshape(int w, int h)
+    {
+      width = w;
+      height = h;
+      glViewport(0, 0, w, h);
+      glMatrixMode(GL_PROJECTION);
+      glLoadIdentity();
+      glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
+    }
   }
 }
 

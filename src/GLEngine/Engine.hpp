@@ -4,11 +4,11 @@
 #include <iostream>
 #include <GL/freeglut.h>
 
-#include "Log.hpp"
 #include "Keys.hpp"
 #include "Internal.hpp"
 #include "Util.hpp"
-#include "Shape.hpp"
+#include "Drawable.hpp"
+#include "Log.hpp"
 
 namespace Engine
 {
@@ -43,9 +43,25 @@ namespace Engine
     glutTimerFunc(1000 / Internal::fps, Internal::timer, 0);
     glutKeyboardFunc(Internal::keyDownWrapper);
     glutKeyboardUpFunc(Internal::keyUpWrapper);
+    glutReshapeFunc(Internal::windowReshape);
 
     Internal::init();
     glutMainLoop();
+  }
+
+  int Width()
+  {
+    return Internal::width;
+  }
+
+  int Height()
+  {
+    return Internal::height;
+  }
+
+  bool isKeyPressed(int key)
+  {
+    return Internal::keys[toupper(key)];
   }
 }
 

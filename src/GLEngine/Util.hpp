@@ -31,14 +31,9 @@ namespace Engine
       return x >= 0 && x <= Engine::Internal::width && y >= 0 && y <= Internal::height;
     }
 
-    bool isKeyPressed(unsigned char key)
-    {
-      return Internal::keys[toupper(key)];
-    }
-
     Vector2 toScreen(int x, int y)
     {
-      return Vector2((float)x / (float)Internal::width - 1.0f, 1.0f - (float)y / (float)Internal::height);
+      return {(x / (Internal::width / 2.0f)) - 1, 1 - (y / (Internal::height / 2.0f))};
     }
   }
 }
