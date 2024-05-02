@@ -33,24 +33,25 @@ To get started with this project, follow these steps:
 ## Usage
 
 ```cpp
-#include "engine.h"
+#include <iostream>
+#include "GLEngine/Engine.hpp"
+
+using namespace std;
 
 // Implement the following functions
 void init();
-void update(float dt);
+void update(double dt);
 void render();
-void input(unsigned char key, int x, int y);
-void shutdown();
+void keyDown(int keyCode);
+void keyUp(int keyCode);
 
-int main(int argc, char** argv) {
-    Engine::init(&argc, argv, "My Game", 800, 600);
-    Engine::onInit(init);
-    Engine::onUpdate(update);
-    Engine::onRender(render);
-    Engine::onKeyDown(input);
-    Engine::onShutdown(shutdown);
-    Engine::run();
-    return 0;
+int main(int argc, char **argv)
+{
+  Engine::Init("Engine", 800, 600);
+  Engine::Callbacks(init, update, render);
+  Engine::InputCallbacks(keyDown, keyUp);
+  Engine::Run(&argc, argv);
+  return 0;
 }
 ```
 
