@@ -7,6 +7,12 @@
 
 namespace Engine
 {
+  uint64_t getCurrentTimeMillis()
+  {
+    using namespace std::chrono;
+    return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+  }
+
   namespace Internal
   {
     int fps = 60;
@@ -27,12 +33,6 @@ namespace Engine
     void (*keyUp)(int);
     void (*mouseDown)(int, int, int, int);
     void (*mouseMove)(int, int);
-
-    uint64_t getCurrentTimeMillis()
-    {
-      using namespace std::chrono;
-      return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-    }
 
     void renderWrapper()
     {

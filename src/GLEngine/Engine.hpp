@@ -9,7 +9,7 @@
 #include "Util.hpp"
 #include "Drawable.hpp"
 
-#define log(...) (printf("[%s:%d] ", __FILE__, __LINE__), printf(__VA_ARGS__), printf("\n"))
+#define log(...) printf("[%s:%d] ", __FILE__, __LINE__), printf(__VA_ARGS__), printf("\n")
 
 namespace Engine
 {
@@ -58,6 +58,21 @@ namespace Engine
 
     Internal::init();
     glutMainLoop();
+  }
+
+  void Draw(Drawable &drawable, Color color = {255, 255, 255}, int lineWidth = 1)
+  {
+    glColor3ub(color.r, color.g, color.b);
+    glLineWidth(lineWidth);
+    drawable.draw();
+    glLineWidth(1);
+    glColor3ub(255, 255, 255);
+  }
+
+  void Draw(std::vector<Drawable> &drawables, Color color = {255, 255, 255}, int lineWidth = 1)
+  {
+    for (Drawable &drawable : drawables)
+      Draw(drawable, color, lineWidth);
   }
 
   bool isKeyPressed(int key)

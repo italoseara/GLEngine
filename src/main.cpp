@@ -3,59 +3,59 @@
 
 using namespace std;
 
-int speed = 250;
-float x, y;
-
-Engine::Circle circle;
-Engine::Line line;
-Engine::Text fpsText;
-Engine::Text mouseText;
+Shape drawing({}, GL_TRIANGLE_STRIP);
+uint64_t cooldown = 0;
 
 void init()
 {
-  x = Engine::getWidth() / 2;
-  y = Engine::getHeight() / 2;
-
-  circle = Engine::Circle({x, y}, 50, true);
-  line = Engine::Line({0, 0}, {0, 0});
-  fpsText = Engine::Text({0, 0});
-  mouseText = Engine::Text({0, 20});
 }
 
-void update(double dt)
+void update(double)
 {
-  if (Engine::isKeyPressed('w'))
-    y -= speed * dt;
-  if (Engine::isKeyPressed('s'))
-    y += speed * dt;
-  if (Engine::isKeyPressed('a'))
-    x -= speed * dt;
-  if (Engine::isKeyPressed('d'))
-    x += speed * dt;
-
-  circle.pos = {x, y};
-  line.start = {x, y};
-  line.end = Engine::getMousePos();
-
-  fpsText.text = "FPS: " + to_string(Engine::getFPS());
-  mouseText.text = "Mouse: " + to_string(Engine::getMouseX()) + ", " + to_string(Engine::getMouseY()) + " " + (Engine::isMousePressed(0) ? "LMB " : "") + (Engine::isMousePressed(1) ? "RMB " : "") + (Engine::isMousePressed(2) ? "MMB " : "");
 }
 
 void render()
 {
-  glColor3ub(255, 255, 255);
-  circle.draw();
-  line.draw();
+  Engine::Draw(drawing, {255, 255, 0});
+}
 
-  glColor3ub(0, 255, 0);
-  fpsText.draw();
-  mouseText.draw();
+void mouseDown(int button, int state, int x, int y)
+{
+  uint64_t now = Engine::getCurrentTimeMillis();
+  if (now - cooldown < 100)
+    return;
+
+  if (state == GLUT_UP)
+    return;
+
+  cooldown = now;
+  if (button == 0)
+  {
+    drawing.points.push_back({(float)x, (float)y});
+  }
+  else if (button == 2 && drawing.points.size() > 0)
+  {
+    drawing.points.pop_back();
+  }
+  else if (button == 1)
+  {
+    printf("Points: {");
+    for (auto p : drawing.points)
+    {
+      printf("{%.0f, %.0f}", p.x, p.y);
+      auto last = drawing.points.back();
+      if (p.x != last.x || p.y != last.y)
+        printf(", ");
+    }
+    printf("}\n");
+  }
 }
 
 int main(int argc, char **argv)
 {
-  Engine::Init("App", 800, 600, 120);
+  Engine::Init("App", 250, 250, 120);
   Engine::Callbacks(init, update, render);
+  Engine::MouseCallbacks(mouseDown, nullptr);
   Engine::Run(&argc, argv);
   return 0;
 }
