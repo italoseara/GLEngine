@@ -15,6 +15,8 @@ namespace Engine
 
   namespace Internal
   {
+    bool debug = false;
+
     int fps = 60;
     int width, height;
     std::string title;
@@ -31,14 +33,17 @@ namespace Engine
     void (*render)();
     void (*keyDown)(int);
     void (*keyUp)(int);
-    void (*mouseDown)(int, int, int, int);
+    void (*mouseAction)(int, int, int, int);
     void (*mouseMove)(int, int);
+
+    void drawDebugInfo();
 
     void renderWrapper()
     {
       glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
       render();
+      drawDebugInfo();
       glutSwapBuffers();
     }
 
@@ -91,10 +96,10 @@ namespace Engine
       keys[toupper(key)] = false;
     }
 
-    void mouseDownWrapper(int button, int state, int x, int y)
+    void mouseActionWrapper(int button, int state, int x, int y)
     {
-      if (mouseDown)
-        mouseDown(button, state, x, y);
+      if (mouseAction)
+        mouseAction(button, state, x, y);
       mouseButtons[button] = state == GLUT_DOWN;
     }
 
