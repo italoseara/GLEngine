@@ -12,6 +12,12 @@ bool markers = true;
 
 void init()
 {
+  cout << "Press SPACE to toggle markers" << endl;
+  cout << "Press BACKSPACE to remove last point" << endl;
+  cout << "Press ENTER to print points" << endl;
+  cout << "LMB to add point" << endl;
+  cout << "RMB to clear points" << endl;
+  cout << "MMB to mirror points" << endl;
 }
 
 void update(double)

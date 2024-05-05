@@ -26,7 +26,6 @@ public:
   void draw(bool = false) override
   {
     Vector2 p = Engine::Util::toScreen(pos.x, pos.y + glutBitmapHeight(font));
-
     glPushMatrix();
     glRasterPos2f(p.x, p.y);
     for (char c : text)
@@ -49,12 +48,19 @@ public:
   Point(Vector2 pos) : pos(pos) {}
   Point(int x, int y) : pos(Vector2(x, y)) {}
 
-  void draw(bool = false) override
+  void draw(bool debug = false) override
   {
     Vector2 p = Engine::Util::toScreen(pos.x, pos.y);
     glBegin(GL_POINTS);
     glVertex2f(p.x, p.y);
     glEnd();
+
+    if (debug)
+    {
+      glColor3ub(0, 255, 0);
+      Text(pos, pos.toString()).draw();
+      glColor3ub(255, 255, 255);
+    }
   }
 
   void operator+=(Vector2 pos) override
@@ -125,6 +131,7 @@ public:
     {
       glColor3ub(0, 255, 0);
       Text(pos, pos.toString()).draw();
+      Circle(pos, radius, false).draw();
       glColor3ub(255, 255, 255);
     }
   }
@@ -161,6 +168,7 @@ public:
       Text(this->p1, this->p1.toString()).draw();
       Text(this->p2, this->p2.toString()).draw();
       Text(this->p3, this->p3.toString()).draw();
+      Triangle(this->p1, this->p2, this->p3, false).draw();
       glColor3ub(255, 255, 255);
     }
   }
@@ -203,6 +211,7 @@ public:
       Text(Vector2(pos.x + width, pos.y), Vector2(pos.x + width, pos.y).toString()).draw();
       Text(Vector2(pos.x + width, pos.y + height), Vector2(pos.x + width, pos.y + height).toString()).draw();
       Text(Vector2(pos.x, pos.y + height), Vector2(pos.x, pos.y + height).toString()).draw();
+      Rectangle(pos, width, height, false).draw();
       glColor3ub(255, 255, 255);
     }
   }
@@ -237,6 +246,7 @@ public:
       glColor3ub(0, 255, 0);
       for (Vector2 p : points)
         Text(p, p.toString()).draw();
+      Polygon(points, false).draw();
       glColor3ub(255, 255, 255);
     }
   }
@@ -272,6 +282,7 @@ public:
       glColor3ub(0, 255, 0);
       for (Vector2 p : points)
         Text(p, p.toString()).draw();
+      Shape(points, GL_LINE_LOOP).draw();
       glColor3ub(255, 255, 255);
     }
   }

@@ -1,3 +1,7 @@
+/*
+ * Main models file, includes all models
+ */
+
 #ifndef MODELS_HPP
 #define MODELS_HPP
 
@@ -33,6 +37,7 @@ public:
   }
 };
 
+// Sorry, it needs to be here, otherwise it won't compile (BodyPart is not defined)
 #include "Faces.hpp"
 
 #endif // MODELS_HPP

@@ -108,7 +108,7 @@ void keyDown(int key)
     selectedFace = key - KEY_F1;
 
   // Toggle debug mode
-  if (key == 'h')
+  if (key == KEY_ALT_L)
     Engine::Debug(!Engine::Internal::debug);
 }
 

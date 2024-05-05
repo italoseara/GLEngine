@@ -24,7 +24,7 @@ $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 # Build and run target
-run: clean $(TARGET)
+run: $(TARGET)
 	./$(TARGET)
 
 # Clean build files
