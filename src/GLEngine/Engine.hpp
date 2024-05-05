@@ -71,6 +71,8 @@ namespace Engine
     glutDisplayFunc(Internal::renderWrapper);
     glutKeyboardFunc(Internal::keyDownWrapper);
     glutKeyboardUpFunc(Internal::keyUpWrapper);
+    glutSpecialFunc(Internal::specialKeyDownWrapper);
+    glutSpecialUpFunc(Internal::specialKeyUpWrapper);
     glutMouseFunc(Internal::mouseActionWrapper);
     glutPassiveMotionFunc(Internal::mouseMoveWrapper);
     glutMotionFunc(Internal::mouseMoveWrapper);

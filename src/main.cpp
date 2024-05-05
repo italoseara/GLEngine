@@ -52,21 +52,26 @@ void spawnBubbles(int count)
 
 void drawBody()
 {
-  // Rectangle rect({Engine::getWidth() / 2.f - 50, Engine::getHeight() / 2.f + 100}, 100, 200, true);
-  Polygon shirt({
-    {Engine::getWidth() / 2.f - 75, Engine::getHeight() / 2.f + 300},
-    {Engine::getWidth() / 2.f + 75, Engine::getHeight() / 2.f + 300},
-    {Engine::getWidth() / 2.f + 60, Engine::getHeight() / 2.f + 110},
-    {Engine::getWidth() / 2.f - 60, Engine::getHeight() / 2.f + 110},
-  }, true);
-  Engine::Draw(shirt, {228, 52, 39});
-  Polygon shirtOutline({
-    {Engine::getWidth() / 2.f - 75, Engine::getHeight() / 2.f + 300},
-    {Engine::getWidth() / 2.f + 75, Engine::getHeight() / 2.f + 300},
-    {Engine::getWidth() / 2.f + 60, Engine::getHeight() / 2.f + 110},
-    {Engine::getWidth() / 2.f - 60, Engine::getHeight() / 2.f + 110},
-  }, false);
+  float halfWidth = Engine::getWidth() / 2.f;
+  float halfHeight = Engine::getHeight() / 2.f;
+
+  vector<Vector2> body({
+      {halfWidth - 75, halfHeight + 300},
+      {halfWidth + 75, halfHeight + 300},
+      {halfWidth + 60, halfHeight + 110},
+      {halfWidth - 60, halfHeight + 110},
+  });
+
+  Polygon shirt(body, true);
+  Polygon shirtOutline(body, false);
   Engine::Draw(shirtOutline, {0, 0, 0});
+  Engine::Draw(shirt, {228, 52, 39});
+}
+
+void drawInstructions()
+{
+  Text face({10, 40}, "[F1 - F6] Face Outline (" + to_string(selectedFace + 1) + " Selected)", GLUT_BITMAP_HELVETICA_18);
+  Engine::Draw(face, {255, 255, 255});
 }
 
 void init()
@@ -89,14 +94,22 @@ void render()
 
   // Draw body parts
   faces[selectedFace].draw();
+
+  // Line line({Engine::getWidth() / 2.f, 0}, {Engine::getWidth() / 2.f, (float)Engine::getHeight()}, 1);
+  // Engine::Draw(line, {255, 255, 255});
+
+  drawInstructions();
 }
 
 void keyDown(int key)
 {
+  // Change selected face
+  if (key >= KEY_F1 && key <= KEY_F6)
+    selectedFace = key - KEY_F1;
+
+  // Toggle debug mode
   if (key == 'h')
     Engine::Debug(!Engine::Internal::debug);
-  if (key == '1')
-    selectedFace = (selectedFace + 1) % faces.size();
 }
 
 int main(int argc, char **argv)

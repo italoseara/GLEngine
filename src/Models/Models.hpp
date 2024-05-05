@@ -19,8 +19,8 @@ public:
     for (pair<Drawable *, Color> &part : this->parts)
     {
       Drawable *drawable = part.first;
-      *drawable += {400, 350};
       *drawable += offset;
+      *drawable += {400, 350};
     }
   }
 

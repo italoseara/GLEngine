@@ -24,7 +24,7 @@ namespace Engine
     int mouseX, mouseY;
     bool mouseButtons[3];
 
-    bool keys[256];
+    bool keys[512];
     int elapsedFrames = 0, currentFPS = 0;
     uint64_t initialTime = 0, lastTime = 0;
 
@@ -94,6 +94,20 @@ namespace Engine
       if (keyUp)
         keyUp(key);
       keys[toupper(key)] = false;
+    }
+
+    void specialKeyDownWrapper(int key, int, int)
+    {
+      if (keyDown)
+        keyDown(key + 256);
+      keys[key + 256] = true;
+    }
+
+    void specialKeyUpWrapper(int key, int, int)
+    {
+      if (keyUp)
+        keyUp(key + 256);
+      keys[key + 256] = false;
     }
 
     void mouseActionWrapper(int button, int state, int x, int y)

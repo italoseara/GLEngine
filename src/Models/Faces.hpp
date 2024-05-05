@@ -8,111 +8,123 @@
 #define BROWN_SKIN {135, 103, 90}
 
 vector<BodyPart> faces = {
-  BodyPart(
-    { // Shouldn't have done this way because it is impossible to understand what each part is
-      {new Polygon({
-        {0, 0}, {2, 140}, {10, 220}, {50, 270}, 
-        {200, 270}, {240, 220}, {248, 140}, {250, 0}, 
-        {242, -12}, {230, -20}, {20, -20}, {8, -12}},
-      true), LIGHT_SKIN},
-      {new Polygon({
-        {0, 0}, {2, 140}, {10, 220}, {50, 270}, 
-        {200, 270}, {240, 220}, {248, 140}, {250, 0}, 
-        {242, -12}, {230, -20}, {20, -20}, {8, -12}},
-      false), BLACK},
-    },
-    {-125, -125}
-  ),
-  BodyPart(
-    { // Shouldn't have done this way because it is impossible to understand what each part is
-      {new Polygon({
-        {0, 0}, {2, 140}, {10, 220}, {50, 270}, 
-        {200, 270}, {240, 220}, {248, 140}, {250, 0}, 
-        {242, -12}, {230, -20}, {20, -20}, {8, -12}},
-      true), BROWN_SKIN},
-      {new Polygon({
-        {0, 0}, {2, 140}, {10, 220}, {50, 270}, 
-        {200, 270}, {240, 220}, {248, 140}, {250, 0}, 
-        {242, -12}, {230, -20}, {20, -20}, {8, -12}},
-      false), BLACK},
-    },
-    {-125, -125}
-  ),
-  BodyPart(
+  BodyPart( // 0
     {
-      {new Circle({25, 0}, 50, true), LIGHT_SKIN}, // Forehead left
-      {new Circle({25, 0}, 50, false), BLACK}, // Forehead left (outline)
-      {new Circle({225, 0}, 50, true), LIGHT_SKIN}, // Forehead right
-      {new Circle({225, 0}, 50, false), BLACK}, // Forehead right (outline)
-      {new Rectangle({25, -25}, 200, 25, true), LIGHT_SKIN}, // Forehead middle
-      {new Line({25, -25}, {225, -25}, 1), BLACK}, // Forehead middle (outline)
-
-      {new Circle({125, 140}, 250, true), LIGHT_SKIN}, // Chin
-      {new Circle({125, 140}, 250, false), BLACK}, // Chin (outline)
-
-      {new Rectangle({0, 0}, 250, 150, true), LIGHT_SKIN}, // Face
-      {new Rectangle({0, 0}, 250, 150, false), BLACK}, // Face (outline)
-      {new Line({1, 150}, {249, 150}, 5), LIGHT_SKIN}, // Erease bottom face line
-      {new Line({1, 0}, {249, 0}, 5), LIGHT_SKIN}, // Erease top face line
+      {new Polygon({
+        {86, 0}, {25, 25}, {0, 101}, {8, 208}, 
+        {57, 260}, {112, 287}, {146, 287}, 
+        {201, 260}, {250, 208}, {258, 101}, 
+        {233, 25}, {172, 0}
+      }, true), LIGHT_SKIN},
+      {new Polygon({
+        {86, 0}, {25, 25}, {0, 101}, {8, 208}, 
+        {57, 260}, {112, 287}, {146, 287}, 
+        {201, 260}, {250, 208}, {258, 101}, 
+        {233, 25}, {172, 0}
+      }, false), BLACK},
+    },
+    {-128, -125}
+  ),
+  BodyPart( // 1
+    {
+      {new Polygon({
+        {116, 0}, {60, 7}, {20, 39}, {5, 80}, 
+        {0, 144}, {15, 201}, {63, 252}, {106, 283}, 
+        {148, 283}, {191, 252}, {239, 201}, {254, 144}, 
+        {249, 80}, {234, 39}, {194, 7}, {138, 0}
+      }, true), LIGHT_SKIN},
+      {new Polygon({
+        {116, 0}, {60, 7}, {20, 39}, {5, 80}, 
+        {0, 144}, {15, 201}, {63, 252}, {106, 283}, 
+        {148, 283}, {191, 252}, {239, 201}, {254, 144}, 
+        {249, 80}, {234, 39}, {194, 7}, {138, 0}
+      }, false), BLACK},
     },
     {-125, -125}
   ),
-  BodyPart(
+  BodyPart( // 2
     {
-      {new Circle({25, 0}, 50, true), BROWN_SKIN}, // Forehead left
-      {new Circle({25, 0}, 50, false), BLACK}, // Forehead left (outline)
-      {new Circle({225, 0}, 50, true), BROWN_SKIN}, // Forehead right
-      {new Circle({225, 0}, 50, false), BLACK}, // Forehead right (outline)
-      {new Rectangle({25, -25}, 200, 25, true), BROWN_SKIN}, // Forehead middle
-      {new Line({25, -25}, {225, -25}, 1), BLACK}, // Forehead middle (outline)
-
-      {new Circle({125, 140}, 250, true), BROWN_SKIN}, // Chin
-      {new Circle({125, 140}, 250, false), BLACK}, // Chin (outline)
-
-      {new Rectangle({0, 0}, 250, 150, true), BROWN_SKIN}, // Face
-      {new Rectangle({0, 0}, 250, 150, false), BLACK}, // Face (outline)
-      {new Line({1, 150}, {249, 150}, 5), BROWN_SKIN}, // Erease bottom face line
-      {new Line({1, 0}, {249, 0}, 5), BROWN_SKIN}, // Erease top face line
+      {new Polygon({
+        {112, 0}, {58, 8}, {23, 41}, {8, 83}, 
+        {0, 142}, {20, 203}, {53, 228}, 
+        {84, 241}, {94, 265}, {119, 283}, 
+        {143, 283}, {168, 265}, {178, 241}, 
+        {209, 228}, {242, 203}, {262, 142}, 
+        {254, 83}, {239, 41}, {204, 8}, {150, 0}
+      }, true), LIGHT_SKIN},
+      {new Polygon({
+        {112, 0}, {58, 8}, {23, 41}, {8, 83}, 
+        {0, 142}, {20, 203}, {53, 228}, 
+        {84, 241}, {94, 265}, {119, 283}, 
+        {143, 283}, {168, 265}, {178, 241}, 
+        {209, 228}, {242, 203}, {262, 142}, 
+        {254, 83}, {239, 41}, {204, 8}, {150, 0}
+      }, false), BLACK},
     },
-    {-125, -125}
+    {-130, -125}
   ),
-  BodyPart(
+  BodyPart( // 3
     {
-      {new Triangle({0, 0}, {25, 0}, {25, -25}, true), LIGHT_SKIN}, // Forehead left
-      {new Triangle({0, 0}, {25, 0}, {25, -25}, false), BLACK}, // Forehead left (outline)
-      {new Triangle({225, 0}, {250, 0}, {225, -25}, true), LIGHT_SKIN}, // Forehead right
-      {new Triangle({225, 0}, {250, 0}, {225, -25}, false), BLACK}, // Forehead right (outline)
-      {new Line({25, -24}, {25, 0}, 1), LIGHT_SKIN}, // Erease forehead left line
-      {new Rectangle({25, -25}, 200, 25, true), LIGHT_SKIN}, // Forehead middle
-      {new Line({25, -25}, {225, -25}, 1), BLACK}, // Forehead middle (outline)
-
-      {new Triangle({0, 215}, {250, 215}, {125, 275}, true), LIGHT_SKIN}, // Chin
-      {new Triangle({0, 215}, {250, 215}, {125, 275}, false), BLACK}, // Chin (outline)
-
-      {new Rectangle({0, 0}, 250, 215, true), LIGHT_SKIN}, // Face
-      {new Rectangle({0, 0}, 250, 215, false), BLACK}, // Face (outline)
-      {new Line({1, 215}, {249, 215}, 2), LIGHT_SKIN}, // Erease bottom face line
-      {new Line({1, 0}, {249, 0}, 2), LIGHT_SKIN}, // Erease top face line
+      {new Polygon({
+        {119, 0}, {65, 5}, {28, 17}, {7, 58}, 
+        {0, 144}, {18, 219}, {41, 255}, {98, 276}, 
+        {122, 283}, {134, 283}, {158, 276}, 
+        {215, 255}, {238, 219}, {256, 144}, 
+        {249, 58}, {228, 17}, {191, 5}, {137, 0}
+      }, true), LIGHT_SKIN},
+      {new Polygon({
+        {119, 0}, {65, 5}, {28, 17}, {7, 58}, 
+        {0, 144}, {18, 219}, {41, 255}, {98, 276}, 
+        {122, 283}, {134, 283}, {158, 276}, 
+        {215, 255}, {238, 219}, {256, 144}, 
+        {249, 58}, {228, 17}, {191, 5}, {137, 0}
+      }, false), BLACK},
     },
-    {-125, -125}
+    {-127, -125}
   ),
-  BodyPart(
+  BodyPart( // 4
     {
-      {new Triangle({0, 0}, {25, 0}, {25, -25}, true), BROWN_SKIN}, // Forehead left
-      {new Triangle({0, 0}, {25, 0}, {25, -25}, false), BLACK}, // Forehead left (outline)
-      {new Triangle({225, 0}, {250, 0}, {225, -25}, true), BROWN_SKIN}, // Forehead right
-      {new Triangle({225, 0}, {250, 0}, {225, -25}, false), BLACK}, // Forehead right (outline)
-      {new Line({25, -24}, {25, 0}, 1), BROWN_SKIN}, // Erease forehead left line
-      {new Rectangle({25, -25}, 200, 25, true), BROWN_SKIN}, // Forehead middle
-      {new Line({25, -25}, {225, -25}, 1), BLACK}, // Forehead middle (outline)
-
-      {new Triangle({0, 215}, {250, 215}, {125, 275}, true), BROWN_SKIN}, // Chin
-      {new Triangle({0, 215}, {250, 215}, {125, 275}, false), BLACK}, // Chin (outline)
-
-      {new Rectangle({0, 0}, 250, 215, true), BROWN_SKIN}, // Face
-      {new Rectangle({0, 0}, 250, 215, false), BLACK}, // Face (outline)
-      {new Line({1, 215}, {249, 215}, 2), BROWN_SKIN}, // Erease bottom face line
-      {new Line({1, 0}, {249, 0}, 2), BROWN_SKIN}, // Erease top face line
+      {new Polygon({
+        {117, 0}, {42, 12}, {10, 51}, {0, 109}, 
+        {11, 178}, {38, 229}, {69, 263}, {104, 282}, 
+        {120, 290}, {128, 290}, {144, 282}, 
+        {179, 263}, {210, 229}, {237, 178}, 
+        {248, 109}, {238, 51}, {206, 12}, {131, 0}
+      }, true), LIGHT_SKIN},
+      {new Polygon({
+        {117, 0}, {42, 12}, {10, 51}, {0, 109}, 
+        {11, 178}, {38, 229}, {69, 263}, {104, 282}, 
+        {120, 290}, {128, 290}, {144, 282}, 
+        {179, 263}, {210, 229}, {237, 178}, 
+        {248, 109}, {238, 51}, {206, 12}, {131, 0}
+      }, false), BLACK},
+    },
+    {-124, -125}
+  ),
+  BodyPart( // 5
+    {
+      {new Polygon({
+        {117, 0}, {77, 7}, {48, 15}, {20, 37}, 
+        {4, 77}, {0, 142}, {4, 172}, {9, 204}, 
+        {20, 231}, {39, 253}, {55, 263}, 
+        {75, 273}, {94, 276}, {112, 278}, 
+        {140, 278}, {158, 276}, {177, 273}, 
+        {197, 263}, {213, 253}, {232, 231}, 
+        {243, 204}, {248, 172}, {252, 142}, 
+        {248, 77}, {232, 37}, {204, 15}, 
+        {175, 7}, {135, 0}
+      }, true), LIGHT_SKIN},
+      {new Polygon({
+        {117, 0}, {77, 7}, {48, 15}, {20, 37}, 
+        {4, 77}, {0, 142}, {4, 172}, {9, 204}, 
+        {20, 231}, {39, 253}, {55, 263}, 
+        {75, 273}, {94, 276}, {112, 278}, 
+        {140, 278}, {158, 276}, {177, 273}, 
+        {197, 263}, {213, 253}, {232, 231}, 
+        {243, 204}, {248, 172}, {252, 142}, 
+        {248, 77}, {232, 37}, {204, 15}, 
+        {175, 7}, {135, 0}
+      }, false), BLACK},
     },
     {-125, -125}
   ),
