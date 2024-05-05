@@ -7,6 +7,8 @@
 #define LIGHT_SKIN {255, 219, 172}
 #define BROWN_SKIN {135, 103, 90}
 
+int selectedFace = 0;
+
 vector<BodyPart> faces = {
   BodyPart( // 0
     {
@@ -129,5 +131,10 @@ vector<BodyPart> faces = {
     {-125, -125}
   ),
 };
+
+void drawFace()
+{
+  faces[selectedFace].draw();
+}
 
 #endif // FACES_HPP

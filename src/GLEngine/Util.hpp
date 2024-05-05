@@ -19,11 +19,12 @@ struct Vector2
 
   float magnitude() const { return std::sqrt(x * x + y * y); }
   float distance(const Vector2 &v) const { return (*this - v).magnitude(); }
+  Vector2 normalize() const { return *this / magnitude(); }
 
   std::string toString() const
   {
     char buff[100];
-    snprintf(buff, sizeof(buff), "%.1f %.1f", x, y);
+    snprintf(buff, sizeof(buff), "{%.1f, %.1f}", x, y);
     std::string buffAsStdStr = buff;
     return buffAsStdStr;
   }

@@ -5,15 +5,64 @@
 
 using namespace std;
 
-vector<BodyPart> hairs;
-vector<BodyPart> eyes;
-vector<BodyPart> mouths;
-vector<BodyPart> eyebrows;
-vector<BodyPart> noses;
+void drawBackground();
+void spawnBubbles(int count);
+void drawBody();
+void drawInstructions();
+string toOrdinal(int);
 
-int selectedFace = 0;
+void init();
+void update(double);
+void render();
+void keyDown(int key);
 
 vector<Vector2> bubblePositions;
+
+int main(int argc, char **argv)
+{
+  Engine::Init("App", 800, 600, 60);
+  Engine::Callbacks(init, update, render);
+  Engine::InputCallbacks(keyDown);
+  Engine::Debug(false);
+  Engine::Run(&argc, argv);
+  return 0;
+}
+
+void init()
+{
+  srand(time(NULL));
+  spawnBubbles(20);
+}
+
+void update(double)
+{
+}
+
+void render()
+{
+  drawBackground();
+  drawBody();
+
+  drawFace();
+  drawEyes();
+
+  // Line line({Engine::getWidth() / 2.f, 0}, {Engine::getWidth() / 2.f, (float)Engine::getHeight()}, 1);
+  // Engine::Draw(line, {255, 255, 255});
+
+  drawInstructions();
+}
+
+void keyDown(int key)
+{
+  if (key >= KEY_F1 && key <= KEY_F6)
+    selectedFace = key - KEY_F1;
+
+  if (key >= '1' && key <= '6')
+    selectedEyeColor = key - '1';
+
+  if (key == KEY_INSERT)
+    Engine::Debug(!Engine::Internal::debug);
+}
 
 void drawBackground()
 {
@@ -70,54 +119,32 @@ void drawBody()
 
 void drawInstructions()
 {
-  Text face({10, 40}, "[F1 - F6] Face Outline (" + to_string(selectedFace + 1) + " Selected)", GLUT_BITMAP_HELVETICA_18);
-  Engine::Draw(face, {255, 255, 255});
+  vector<Text> lines({
+      Text({10, 20}, "[F1 - F6] Face Outline", GLUT_BITMAP_HELVETICA_18),
+      Text({250, 20}, toOrdinal(selectedFace + 1) + " Selected", GLUT_BITMAP_HELVETICA_18),
+      Text({10, 45}, "[F7 - F12] Hair", GLUT_BITMAP_HELVETICA_18),
+      Text({250, 45}, "0th Selected", GLUT_BITMAP_HELVETICA_18),
+      Text({10, 70}, "[1 - 6] Eye Color", GLUT_BITMAP_HELVETICA_18),
+      Text({250, 70}, toOrdinal(selectedEyeColor + 1) + " Selected", GLUT_BITMAP_HELVETICA_18),
+      Text({10, 95}, "[q, w, e, r, t, y] Mouth", GLUT_BITMAP_HELVETICA_18),
+      Text({250, 95}, "0th Selected", GLUT_BITMAP_HELVETICA_18),
+      Text({10, 120}, "[a, s, d, f, g, h] Eyebrows", GLUT_BITMAP_HELVETICA_18),
+      Text({250, 120}, "0th Selected", GLUT_BITMAP_HELVETICA_18),
+      Text({10, 145}, "[z, x, c, v, b, n] Nose", GLUT_BITMAP_HELVETICA_18),
+      Text({250, 145}, "0th Selected", GLUT_BITMAP_HELVETICA_18),
+  });
+
+  for (Text line : lines)
+    Engine::Draw(line, {255, 255, 255});
 }
 
-void init()
+string toOrdinal(int n)
 {
-  // Change random seed
-  srand(time(NULL));
-
-  // Spawn random bubbles to fill the background
-  spawnBubbles(20);
-}
-
-void update(double)
-{
-}
-
-void render()
-{
-  drawBackground();
-  drawBody();
-
-  // Draw body parts
-  faces[selectedFace].draw();
-
-  // Line line({Engine::getWidth() / 2.f, 0}, {Engine::getWidth() / 2.f, (float)Engine::getHeight()}, 1);
-  // Engine::Draw(line, {255, 255, 255});
-
-  drawInstructions();
-}
-
-void keyDown(int key)
-{
-  // Change selected face
-  if (key >= KEY_F1 && key <= KEY_F6)
-    selectedFace = key - KEY_F1;
-
-  // Toggle debug mode
-  if (key == KEY_ALT_L)
-    Engine::Debug(!Engine::Internal::debug);
-}
-
-int main(int argc, char **argv)
-{
-  Engine::Init("App", 800, 600, 60);
-  Engine::Callbacks(init, update, render);
-  Engine::InputCallbacks(keyDown);
-  Engine::Debug(false);
-  Engine::Run(&argc, argv);
-  return 0;
+  if (n == 1)
+    return "1st";
+  if (n == 2)
+    return "2nd";
+  if (n == 3)
+    return "3rd";
+  return to_string(n) + "th";
 }
