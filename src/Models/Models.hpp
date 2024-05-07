@@ -40,5 +40,6 @@ public:
 // Sorry, it needs to be here, otherwise it won't compile (BodyPart is not defined)
 #include "Faces.hpp"
 #include "Eyes.hpp"
+#include "Hairs.hpp"
 
 #endif // MODELS_HPP

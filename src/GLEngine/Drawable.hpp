@@ -244,8 +244,11 @@ public:
     if (debug)
     {
       glColor3ub(0, 255, 0);
-      for (Vector2 p : points)
-        Text(p, p.toString()).draw();
+      for (size_t i = 0; i < points.size(); i++)
+      {
+        Vector2 p = points[i];
+        Text(p, std::to_string(i)).draw();
+      }
       Polygon(points, false).draw();
       glColor3ub(255, 255, 255);
     }
@@ -280,8 +283,11 @@ public:
     if (debug)
     {
       glColor3ub(0, 255, 0);
-      for (Vector2 p : points)
-        Text(p, p.toString()).draw();
+      for (size_t i = 0; i < points.size(); i++)
+      {
+        Vector2 p = points[i];
+        Text(p, std::to_string(i)).draw();
+      }
       Shape(points, GL_LINE_LOOP).draw();
       glColor3ub(255, 255, 255);
     }

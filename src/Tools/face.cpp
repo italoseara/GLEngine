@@ -100,7 +100,7 @@ void mouseAction(int button, int action, int x, int y)
 
 int main(int argc, char **argv)
 {
-  Engine::Init("App", 300, 350, 60);
+  Engine::Init("Draw face", 300, 350, 60);
   Engine::Callbacks(init, update, render);
   Engine::InputCallbacks(keyDown);
   Engine::MouseCallbacks(mouseAction);

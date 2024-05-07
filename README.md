@@ -15,7 +15,8 @@ To get started with this project, follow these steps:
 
 1. Clone this repository: `git clone https://github.com/italoseara/GLEngine.git`
 2. Open the project in your favorite IDE
-3. Build and run the project
+3. Build using `make` or `make all`
+4. Run the project using `./build/main`
 
 ## Features
 
