@@ -70,34 +70,35 @@ public:
 class Line : public Drawable
 {
 public:
-  Vector2 start, end;
+  std::vector<Vector2> points;
   int width;
 
-  Line() : start(Vector2()), end(Vector2()), width(1) {}
-  Line(Vector2 start, Vector2 end, int width) : start(start), end(end), width(width) {}
+  Line() : points(std::vector<Vector2>()), width(1) {}
+  Line(Vector2 start, Vector2 end, int width) : points({start, end}), width(width) {}
+  Line(std::vector<Vector2> points, int width) : points(points), width(width) {}
 
   void draw(bool debug = false) override
   {
     glLineWidth(width);
-    glBegin(GL_LINES);
-    glVertex2f(start.x, start.y);
-    glVertex2f(end.x, end.y);
+    glBegin(GL_LINE_STRIP);
+    for (Vector2 p : points)
+      glVertex2f(p.x, p.y);
     glEnd();
     glLineWidth(1);
 
     if (debug)
     {
       glColor3ub(0, 255, 0);
-      Text(start, start.toString()).draw();
-      Text(end, end.toString()).draw();
+      for (size_t i = 0; i < points.size(); i++)
+        Text(points[i], std::to_string(i)).draw();
       glColor3ub(255, 255, 255);
     }
   }
 
   void operator+=(Vector2 pos) override
   {
-    start += pos;
-    end += pos;
+    for (Vector2 &p : points)
+      p += pos;
   }
 };
 

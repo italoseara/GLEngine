@@ -48,10 +48,8 @@ void render()
   drawEyes();
   drawEyebrow();
   drawHair();
+  drawNose();
   drawMouth();
-
-  // Line line({Engine::getWidth() / 2.f, 0}, {Engine::getWidth() / 2.f, (float)Engine::getHeight()}, 1);
-  // Engine::Draw(line, {255, 255, 255});
 
   drawInstructions();
 }
@@ -69,6 +67,7 @@ void keyDown(int key)
 
   selectedMouth = getSelected({'q', 'w', 'e', 'r', 't', 'y'}, key, selectedMouth);
   selectedEyebrow = getSelected({'a', 's', 'd', 'f', 'g', 'h'}, key, selectedEyebrow);
+  selectedNose = getSelected({'z', 'x', 'c', 'v', 'b', 'n'}, key, selectedNose);
 
   if (key == KEY_INSERT)
     Engine::Debug(!Engine::Internal::debug);
@@ -142,7 +141,7 @@ void drawInstructions()
       Text({10, 120}, "[a, s, d, f, g, h] Eyebrows", font),
       Text({250, 120}, toOrdinal(selectedEyebrow + 1) + " Selected", font),
       Text({10, 145}, "[z, x, c, v, b, n] Nose", font),
-      Text({250, 145}, "0th Selected", font),
+      Text({250, 145}, toOrdinal(selectedNose + 1) + " Selected", font),
   });
 
   for (Text line : lines)
