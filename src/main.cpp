@@ -46,6 +46,7 @@ void render()
 
   drawFace();
   drawEyes();
+  drawEyebrow();
   drawHair();
   drawMouth();
 
@@ -59,14 +60,15 @@ void keyDown(int key)
 {
   if (key >= KEY_F1 && key <= KEY_F6)
     selectedFace = key - KEY_F1;
-  
+
   if (key >= KEY_F7 && key <= KEY_F12)
     selectedHair = key - KEY_F7;
 
   if (key >= '1' && key <= '6')
     selectedEyeColor = key - '1';
-  
+
   selectedMouth = getSelected({'q', 'w', 'e', 'r', 't', 'y'}, key, selectedMouth);
+  selectedEyebrow = getSelected({'a', 's', 'd', 'f', 'g', 'h'}, key, selectedEyebrow);
 
   if (key == KEY_INSERT)
     Engine::Debug(!Engine::Internal::debug);
@@ -78,7 +80,7 @@ void drawBackground()
 
   for (Vector2 pos : bubblePositions)
   {
-    Circle c(pos, 100, true);
+    Circle c(pos, 50, true);
     Engine::Draw(c, {119, 188, 218});
   }
 }
@@ -138,7 +140,7 @@ void drawInstructions()
       Text({10, 95}, "[q, w, e, r, t, y] Mouth", font),
       Text({250, 95}, toOrdinal(selectedMouth + 1) + " Selected", font),
       Text({10, 120}, "[a, s, d, f, g, h] Eyebrows", font),
-      Text({250, 120}, "0th Selected", font),
+      Text({250, 120}, toOrdinal(selectedEyebrow + 1) + " Selected", font),
       Text({10, 145}, "[z, x, c, v, b, n] Nose", font),
       Text({250, 145}, "0th Selected", font),
   });
