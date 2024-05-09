@@ -6,26 +6,24 @@
 #define min(a, b) (a < b ? a : b)
 
 BodyPart eyes({
-                  {new Circle({0, 0}, 90, true), {255, 255, 255}},
-                  {new Circle({115, 0}, 90, true), {255, 255, 255}},
-                  {new Circle({0, 0}, 90, false), {0, 0, 0}},
-                  {new Circle({115, 0}, 90, false), {0, 0, 0}},
-              },
-              {-58, 0});
+  {new Circle({0, 0}, 45, true), {255, 255, 255}},
+  {new Circle({115, 0}, 45, true), {255, 255, 255}},
+  {new Circle({0, 0}, 45, false), {0, 0, 0}},
+  {new Circle({115, 0}, 45, false), {0, 0, 0}},
+}, {-58, 0});
 
 BodyPart pupils({
-                    {new Circle({0, 0}, 30, true), {0, 0, 0}},
-                    {new Circle({115, 0}, 30, true), {0, 0, 0}},
-                },
-                {-58, 0});
+  {new Circle({0, 0}, 15, true), {0, 0, 0}},
+  {new Circle({115, 0}, 15, true), {0, 0, 0}},
+}, {-58, 0});
 
 vector<Color> eyeColors = {
-    {0, 0, 0},     // Black
-    {69, 24, 0},   // Brown
-    {84, 42, 14},  // Dark Brown
-    {46, 83, 111}, // Aqua
-    {28, 120, 71}, // Green
-    {200, 20, 20}, // Red
+  {0, 0, 0},     // Black
+  {69, 24, 0},   // Brown
+  {84, 42, 14},  // Dark Brown
+  {46, 83, 111}, // Aqua
+  {28, 120, 71}, // Green
+  {200, 20, 20}, // Red
 };
 
 int selectedEyeColor = 0;

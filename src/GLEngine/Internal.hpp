@@ -132,8 +132,7 @@ namespace Engine
       glViewport(0, 0, w, h);
       glMatrixMode(GL_PROJECTION);
       glLoadIdentity();
-      glMatrixMode(GL_MODELVIEW);
-      glLoadIdentity();
+      gluOrtho2D(0, w, h, 0);
     }
   }
 }

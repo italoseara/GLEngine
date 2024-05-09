@@ -41,5 +41,6 @@ public:
 #include "Faces.hpp"
 #include "Eyes.hpp"
 #include "Hairs.hpp"
+#include "Mouths.hpp"
 
 #endif // MODELS_HPP

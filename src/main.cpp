@@ -9,6 +9,7 @@ void drawBackground();
 void spawnBubbles(int count);
 void drawBody();
 void drawInstructions();
+int getSelected(vector<char>, int, int);
 string toOrdinal(int);
 
 void init();
@@ -46,6 +47,7 @@ void render()
   drawFace();
   drawEyes();
   drawHair();
+  drawMouth();
 
   // Line line({Engine::getWidth() / 2.f, 0}, {Engine::getWidth() / 2.f, (float)Engine::getHeight()}, 1);
   // Engine::Draw(line, {255, 255, 255});
@@ -63,6 +65,8 @@ void keyDown(int key)
 
   if (key >= '1' && key <= '6')
     selectedEyeColor = key - '1';
+  
+  selectedMouth = getSelected({'q', 'w', 'e', 'r', 't', 'y'}, key, selectedMouth);
 
   if (key == KEY_INSERT)
     Engine::Debug(!Engine::Internal::debug);
@@ -132,7 +136,7 @@ void drawInstructions()
       Text({10, 70}, "[1 - 6] Eye Color", font),
       Text({250, 70}, toOrdinal(selectedEyeColor + 1) + " Selected", font),
       Text({10, 95}, "[q, w, e, r, t, y] Mouth", font),
-      Text({250, 95}, "0th Selected", font),
+      Text({250, 95}, toOrdinal(selectedMouth + 1) + " Selected", font),
       Text({10, 120}, "[a, s, d, f, g, h] Eyebrows", font),
       Text({250, 120}, "0th Selected", font),
       Text({10, 145}, "[z, x, c, v, b, n] Nose", font),
@@ -141,6 +145,17 @@ void drawInstructions()
 
   for (Text line : lines)
     Engine::Draw(line, {255, 255, 255});
+}
+
+int getSelected(vector<char> keys, int key, int def = 0)
+{
+  for (size_t i = 0; i < keys.size(); i++)
+  {
+    if (keys[i] == key)
+      return i;
+  }
+
+  return def;
 }
 
 string toOrdinal(int n)

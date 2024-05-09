@@ -1,5 +1,5 @@
-#ifndef SHAPE_HPP
-#define SHAPE_HPP
+#ifndef DRAWABLE_HPP
+#define DRAWABLE_HPP
 
 #include <cmath>
 #include <vector>
@@ -25,9 +25,8 @@ public:
 
   void draw(bool = false) override
   {
-    Vector2 p = Engine::Util::toScreen(pos.x, pos.y + glutBitmapHeight(font));
     glPushMatrix();
-    glRasterPos2f(p.x, p.y);
+    glRasterPos2f(pos.x, pos.y + glutBitmapHeight(font));
     for (char c : text)
       glutBitmapCharacter(font, c);
     glPopMatrix();
@@ -50,9 +49,8 @@ public:
 
   void draw(bool debug = false) override
   {
-    Vector2 p = Engine::Util::toScreen(pos.x, pos.y);
     glBegin(GL_POINTS);
-    glVertex2f(p.x, p.y);
+    glVertex2f(pos.x, pos.y);
     glEnd();
 
     if (debug)
@@ -80,12 +78,10 @@ public:
 
   void draw(bool debug = false) override
   {
-    Vector2 p1 = Engine::Util::toScreen(start.x, start.y);
-    Vector2 p2 = Engine::Util::toScreen(end.x, end.y);
     glLineWidth(width);
     glBegin(GL_LINES);
-    glVertex2f(p1.x, p1.y);
-    glVertex2f(p2.x, p2.y);
+    glVertex2f(start.x, start.y);
+    glVertex2f(end.x, end.y);
     glEnd();
     glLineWidth(1);
 
@@ -117,13 +113,13 @@ public:
 
   void draw(bool debug = false) override
   {
-    Vector2 p = Engine::Util::toScreen(pos.x, pos.y);
     glBegin(fill ? GL_POLYGON : GL_LINE_LOOP);
     for (int i = 0; i < 360; i++)
     {
       float angle = i * M_PI / 180.0f;
-      glVertex2f(p.x + cos(angle) * radius / Engine::Internal::width,
-                 p.y + sin(angle) * radius / Engine::Internal::height);
+      float x = pos.x + radius * cos(angle);
+      float y = pos.y + radius * sin(angle);
+      glVertex2f(x, y);
     }
     glEnd();
 
@@ -153,13 +149,10 @@ public:
 
   void draw(bool debug = false) override
   {
-    Vector2 p1 = Engine::Util::toScreen(this->p1.x, this->p1.y);
-    Vector2 p2 = Engine::Util::toScreen(this->p2.x, this->p2.y);
-    Vector2 p3 = Engine::Util::toScreen(this->p3.x, this->p3.y);
     glBegin(fill ? GL_TRIANGLES : GL_LINE_LOOP);
-    glVertex2f(p1.x, p1.y);
-    glVertex2f(p2.x, p2.y);
-    glVertex2f(p3.x, p3.y);
+    glVertex2f(this->p1.x, this->p1.y);
+    glVertex2f(this->p2.x, this->p2.y);
+    glVertex2f(this->p3.x, this->p3.y);
     glEnd();
 
     if (debug)
@@ -193,10 +186,10 @@ public:
 
   void draw(bool debug = false) override
   {
-    Vector2 p1 = Engine::Util::toScreen(pos.x, pos.y);
-    Vector2 p2 = Engine::Util::toScreen(pos.x + width, pos.y);
-    Vector2 p3 = Engine::Util::toScreen(pos.x + width, pos.y + height);
-    Vector2 p4 = Engine::Util::toScreen(pos.x, pos.y + height);
+    Vector2 p1 = {pos.x, pos.y};
+    Vector2 p2 = {pos.x + width, pos.y};
+    Vector2 p3 = {pos.x + width, pos.y + height};
+    Vector2 p4 = {pos.x, pos.y + height};
     glBegin(fill ? GL_QUADS : GL_LINE_LOOP);
     glVertex2f(p1.x, p1.y);
     glVertex2f(p2.x, p2.y);
@@ -236,7 +229,7 @@ public:
     glBegin(fill ? GL_POLYGON : GL_LINE_LOOP);
     for (Vector2 p : points)
     {
-      Vector2 p1 = Engine::Util::toScreen(p.x, p.y);
+      Vector2 p1 = Vector2(p.x, p.y);
       glVertex2f(p1.x, p1.y);
     }
     glEnd();
@@ -275,7 +268,7 @@ public:
     glBegin(method);
     for (Vector2 p : points)
     {
-      Vector2 p1 = Engine::Util::toScreen(p.x, p.y);
+      Vector2 p1 = {p.x, p.y};
       glVertex2f(p1.x, p1.y);
     }
     glEnd();
@@ -300,4 +293,4 @@ public:
   }
 };
 
-#endif // SHAPE_HPP
+#endif // DRAWABLE_HPP

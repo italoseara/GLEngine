@@ -37,20 +37,4 @@ struct Color
   Color(unsigned char r, unsigned char g, unsigned char b, unsigned char a = 255) : r(r), g(g), b(b), a(a) {}
 };
 
-namespace Engine
-{
-  namespace Util
-  {
-    bool isOnScreen(int x, int y)
-    {
-      return x >= 0 && x <= Engine::Internal::width && y >= 0 && y <= Internal::height;
-    }
-
-    Vector2 toScreen(int x, int y)
-    {
-      return {(x / (Internal::width / 2.0f)) - 1, 1 - (y / (Internal::height / 2.0f))};
-    }
-  }
-}
-
 #endif // UTILS_HPP
