@@ -17,8 +17,7 @@ public:
   vector<pair<Drawable *, Color>> parts;
   Vector2 offset;
 
-  BodyPart(vector<pair<Drawable *, Color>> parts, Vector2 offset)
-      : parts(parts), offset(offset)
+  BodyPart(vector<pair<Drawable *, Color>> parts, Vector2 offset) : parts(parts), offset(offset)
   {
     for (pair<Drawable *, Color> &part : this->parts)
     {
@@ -31,9 +30,7 @@ public:
   void draw()
   {
     for (pair<Drawable *, Color> &part : parts)
-    {
       Engine::Draw(*part.first, part.second);
-    }
   }
 };
 

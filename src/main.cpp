@@ -21,7 +21,7 @@ vector<Vector2> bubblePositions;
 
 int main(int argc, char **argv)
 {
-  Engine::Init("App", 800, 600, 60);
+  Engine::Init("Mini Mii", 800, 600, 60);
   Engine::Callbacks(init, update, render);
   Engine::InputCallbacks(keyDown);
   Engine::Debug(false);
@@ -151,10 +151,8 @@ void drawInstructions()
 int getSelected(vector<char> keys, int key, int def = 0)
 {
   for (size_t i = 0; i < keys.size(); i++)
-  {
     if (keys[i] == key)
       return i;
-  }
 
   return def;
 }

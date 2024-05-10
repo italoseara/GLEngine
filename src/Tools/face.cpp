@@ -15,9 +15,9 @@ void init()
   cout << "Press SPACE to toggle markers" << endl;
   cout << "Press BACKSPACE to remove last point" << endl;
   cout << "Press ENTER to print points" << endl;
-  cout << "LMB to add point" << endl;
-  cout << "RMB to clear points" << endl;
-  cout << "MMB to mirror points" << endl;
+  cout << "Press LALT to mirror points" << endl;
+  cout << "Press LMB to add point" << endl;
+  cout << "Press RMB to clear points" << endl;
 }
 
 void update(double)
@@ -33,7 +33,7 @@ void render()
   if (markers)
     Engine::Draw(line, {255, 255, 255});
 
-  Circle circle({Engine::getWidth() / 2.f, Engine::getHeight() / 2.f - 25}, 250, false);
+  Circle circle({Engine::getWidth() / 2.f, Engine::getHeight() / 2.f - 25}, 125, false);
   if (markers)
     Engine::Draw(circle, {255, 255, 255});
 
@@ -70,6 +70,16 @@ void keyDown(int keyCode)
       cout << "{" << point.x - minX << ", " << point.y - minY << "}, ";
     cout << "}" << endl;
   }
+
+  if (keyCode == KEY_LALT)
+  {
+    for (int i = poly.points.size() - 1; i >= 0; i--)
+    {
+      auto point = poly.points[i];
+      poly.points.push_back({Engine::getWidth() - point.x, point.y});
+      points.push_back(Circle({Engine::getWidth() - point.x, point.y}, 5, true));
+    }
+  }
 }
 
 void mouseAction(int button, int action, int x, int y)
@@ -86,15 +96,6 @@ void mouseAction(int button, int action, int x, int y)
   {
     poly = Polygon();
     points.clear();
-  }
-  else if (button == GLUT_MIDDLE_BUTTON && action == GLUT_DOWN)
-  {
-    for (int i = poly.points.size() - 1; i >= 0; i--)
-    {
-      auto point = poly.points[i];
-      poly.points.push_back({Engine::getWidth() - point.x, point.y});
-      points.push_back(Circle({Engine::getWidth() - point.x, point.y}, 5, true));
-    }
   }
 }
 

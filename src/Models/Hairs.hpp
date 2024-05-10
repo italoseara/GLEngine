@@ -72,7 +72,7 @@ vector<BodyPart> hairs = {
       }, GL_TRIANGLE_STRIP), {208, 196, 84}},
     }, {-70, -200}
   ),
-  BodyPart({}, {0, 0}) // 5 (Bald)
+  BodyPart({{new Triangle(), {220, 220, 220}}}, {-70, -200}), // 5
 };
 
 void drawHair()
